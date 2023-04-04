@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package shopping_store_v3;
+
+option go_package = "pkg/api/shopping_store_v3;shopping_store_v3";
+
+service ShoppingStoreV3 {
+  rpc AddStaff(AddStaffRequest) returns (AddStaffResponse) {}
+//  rpc RemoveStaff(RemoveStaffRequest) returns (RemoveStaffResponse) {}
+//  rpc GetUserStaff(GetUserStaffRequest) returns (GetUserStaffResponse) {}
+//  rpc UpdateStaffCount(UpdateStaffCountRequest) returns (UpdateStaffCountResponse) {}
+}
+
+message Staff {
+  int64 staff_id = 2;
+  int32 count = 3;
+}
+
+message AddStaffRequest {
+  int64 user_id = 1;
+  Staff staff = 2;
+}
+
+message AddStaffResponse {
+  Staff staff = 1;
+}
+
+message RemoveStaffRequest {
+  int64 user_id = 1;
+  int64 staff_id = 2;
+}
+
+message RemoveStaffResponse {}
+
+message GetUserStaffRequest {
+  int64 user_id = 1;
+}
+
+message GetUserStaffResponse {
+  repeated Staff store = 1;
+}
+
+message UpdateStaffCountRequest {
+  int64 user_id = 1;
+  Staff staff = 2;
+}
+
+message UpdateStaffCountResponse {
+  Staff staff = 1;
+}

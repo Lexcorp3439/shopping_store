@@ -31,8 +31,11 @@ db-create-migration: NAME=$NAME
 db-create-migration:
 	$(LOCAL_BIN)/goose -dir db/migrations postgres "$(LOCAL_DB_DSN)" create "${NAME}" sql
 
-db-up:
+db-up-local:
 	$(LOCAL_BIN)/goose -dir db/migrations postgres "$(LOCAL_DB_DSN)" up
+
+db-up:
+	$(LOCAL_BIN)/goose -dir db/migrations postgres "$(DATABASE_URL)" up
 
 db-status:
 	$(LOCAL_BIN)/goose -dir db/migrations postgres "$(LOCAL_DB_DSN)" status
@@ -43,7 +46,6 @@ db-migrate:
 
 db-migrate-down:
 	$(LOCAL_BIN)/goose -dir db/migrations postgres $(LOCAL_DB_DSN) down
-
 
 db-reset:
 	psql -c "drop database if exists not $(LOCAL_DB_NAME) with (FORCE)"
@@ -56,6 +58,8 @@ run:
 test:
 	rm -rf cover.out
 	DATABASE_URL=$(LOCAL_DB_DSN) go test -race -coverprofile=cover.out ./...
+
+coverage:
 	go tool cover -html=cover.out
 
 mocks:

@@ -23,14 +23,13 @@ func Test_ShoppingStoreV1_AddStaff(t *testing.T) {
 			Count:   count,
 		},
 	}
-	t.Log(req)
 	resp, err := app.AddStaff(ctx, req)
 	require.NoError(t, err)
 	require.NotNil(t, resp)
 
 	staffs, err := repo.GetByUserID(ctx, userID)
-	t.Log(staffs)
 	require.Len(t, staffs, 1)
+
 	s := staffs[0]
 	require.Equal(t, userID, s.UserID)
 	require.Equal(t, staffID, s.StaffID)

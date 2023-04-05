@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"podlodka/shopping_store/internal/pkg/model"
 	"podlodka/shopping_store/internal/pkg/store"
 )
@@ -86,13 +85,5 @@ func (r *storeRepo) GetByUserID(ctx context.Context, userID int64) ([]model.Shop
 		From(model.ShoppingStoreTable).
 		Where("user_id = ?", userID)
 
-	fmt.Println(stmt.ToSql())
-
 	return store.Select[model.ShoppingStore](ctx, r.store, stmt)
-	//var result []model.ShoppingStore
-	//rows, err := r.store.Select(ctx, stmt, &result)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//return pgx.CollectRows(rows, pgx.RowToStructByName[model.ShoppingStore])
 }

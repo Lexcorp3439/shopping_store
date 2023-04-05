@@ -35,6 +35,7 @@ func (s *testSuite) Test_ShoppingStoreV3_AddStaff() {
 
 	staffs, err := repo.GetByUserID(ctx, userID)
 	require.Len(s.T(), staffs, 1)
+
 	p := staffs[0]
 	require.Equal(s.T(), userID, p.UserID)
 	require.Equal(s.T(), staffID, p.StaffID)
